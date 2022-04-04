@@ -20,7 +20,7 @@ public class Matrix {
         for(Matrix other: others){
 
             if(this.rowCount != other.rowCount || this.columnCount != other.columnCount){
-                System.err.println("i hate you!");
+                System.err.println("matrices cannot be added together");
                 System.exit(-1);
             }
 
@@ -36,7 +36,7 @@ public class Matrix {
     public Matrix multiply(Matrix other){
 
         if(this.columnCount!=other.rowCount){
-            System.err.println("i hate you!");
+            System.err.println("matrices cannot be multiplied together");
             System.exit(-1);
         }
         
@@ -52,6 +52,25 @@ public class Matrix {
         return new Matrix(result);
     }
 
+    public Matrix multiply(Matrix... others){
+
+        System.out.println("overloaded used");
+
+        Matrix returnMatrix = new Matrix();
+
+        for(int i = 0; i < others.length; i++){
+
+            if(i==0){
+            returnMatrix = this.multiply(others[i]);
+            }
+            else{
+                returnMatrix = returnMatrix.multiply(others[i]);
+            }
+        }
+        return returnMatrix;
+    }
+
+
     @Override
     public String toString(){
         String output = "";
@@ -61,7 +80,7 @@ public class Matrix {
                 output += data[row][column]+ "\t";
 
             }
-            output += "|\n";
+            output += "\b\b\b|\n";
         }
         return output; 
     }
